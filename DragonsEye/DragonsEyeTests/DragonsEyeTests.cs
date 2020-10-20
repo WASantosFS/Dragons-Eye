@@ -205,5 +205,21 @@ namespace DragonsEyeTests
             // assert
             Assert.AreEqual(expected, result);
         }
+
+        [TestMethod]
+        [DataRow("ACE", "HRN")]
+        [DataRow("ZRM", "QCS")]
+        [DataRow("LKW", "JIP")]
+        public void FormatShouldReplaceSymbolsWithLetters(string input, string expected)
+        {
+            // arrange
+            Crypto crypto = new Crypto();
+
+            // act
+            string result = crypto.Encryption(input, ringPos);
+
+            // assert
+            Assert.AreEqual(expected, result);
+        }
     }
 }
