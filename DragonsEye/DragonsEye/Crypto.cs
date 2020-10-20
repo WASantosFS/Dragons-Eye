@@ -13,8 +13,15 @@ namespace DragonsEye
         private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private string encodingString = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"; // Enigma Rotor "I" wiring.
         private string reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"; // Standard "B" reflector wiring.
+        private bool isEncrypted = false;
+
         private int compensated(int x) => x - (26 * (x / 26));
         int count = 0;
+
+        public bool IsEncrypted()
+        {
+            return isEncrypted;
+        }
 
         public string Shift(string alphabetString, string ringPos)
         {
@@ -36,6 +43,7 @@ namespace DragonsEye
                 count++;
             }
             count = 0;
+            isEncrypted = true;
             return encryptedMessage;
         }
     }

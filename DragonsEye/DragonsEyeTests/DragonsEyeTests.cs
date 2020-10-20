@@ -210,16 +210,32 @@ namespace DragonsEyeTests
         //{"YX", "XD", "YD", "ZD", "XX", "XY", "KKA", "KKB", "YY", "ZZ", "XZ"};
 
         [TestMethod]
-        [DataRow(" ", "YX")]
-        [DataRow("(", "KKA")]
-        [DataRow(".", "XZ")]
+        [DataRow("HELLO WORLD", "HELLOYXWORLD")]
+        [DataRow("(HOW'RE YOU?)", "KKAHOWZDREYXYOUYDKKB")]
+        [DataRow("YES.", "YESXZ")]
         public void FormatShouldReplaceSymbolsWithLetters(string input, string expected)
         {
             // arrange
             Formatting formatting = new Formatting();
 
             // act
-            string result = formatting.Format(input);
+            string result = formatting.Format(input, false);
+
+            // assert
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        [DataRow("HELLOYXWORLD", "HELLO WORLD")]
+        [DataRow("KKAHOWZDREYXYOUYDKKB", "(HOW'RE YOU?)")]
+        [DataRow("YESXZ", "YES.")]
+        public void FormatShouldReplaceLettersWithSymbols(string input, string expected)
+        {
+            // arrange
+            Formatting formatting = new Formatting();
+
+            // act
+            string result = formatting.Format(input, true);
 
             // assert
             Assert.AreEqual(expected, result);

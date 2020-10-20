@@ -7,6 +7,7 @@ namespace DragonsEye
     public class UserInterface
     {
         Crypto crypto = new Crypto();
+        Formatting formatting = new Formatting();
 
         public void MainMenu()
         {
@@ -21,7 +22,16 @@ namespace DragonsEye
                 switch (message)
                 {
                     default:
-                        Console.WriteLine(crypto.Encryption(message, "A"));
+                        if (!crypto.IsEncrypted())
+                        {
+                            string symbolsReplaced = formatting.Format(message, false);
+                            Console.WriteLine(crypto.Encryption(symbolsReplaced, "A"));
+                        }
+                        else
+                        {
+                            string encryptedMessage = crypto.Encryption(message, "A");
+                            Console.WriteLine(formatting.Format(encryptedMessage, true));
+                        }
                         break;
                     case "Q":
                         hasQuit = true;
