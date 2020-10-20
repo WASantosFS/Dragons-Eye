@@ -6,7 +6,7 @@ namespace DragonsEyeTests
     [TestClass]
     public class DragonsEyeTests
     {
-        [TestMethod]
+        /*[TestMethod]
         public void LinkShouldWork()
         {
             // arrange
@@ -204,19 +204,22 @@ namespace DragonsEyeTests
 
             // assert
             Assert.AreEqual(expected, result);
-        }
+        }*/
+
+        //{" ", "!", "?", "'", ":", ";", "(", ")", "-", ",", "."};
+        //{"YX", "XD", "YD", "ZD", "XX", "XY", "KKA", "KKB", "YY", "ZZ", "XZ"};
 
         [TestMethod]
-        [DataRow("ACE", "HRN")]
-        [DataRow("ZRM", "QCS")]
-        [DataRow("LKW", "JIP")]
+        [DataRow(" ", "YX")]
+        [DataRow("(", "KKA")]
+        [DataRow(".", "XZ")]
         public void FormatShouldReplaceSymbolsWithLetters(string input, string expected)
         {
             // arrange
-            Crypto crypto = new Crypto();
+            Formatting formatting = new Formatting();
 
             // act
-            string result = crypto.Encryption(input, ringPos);
+            string result = formatting.Format(input);
 
             // assert
             Assert.AreEqual(expected, result);
