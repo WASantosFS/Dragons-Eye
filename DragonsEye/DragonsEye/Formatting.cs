@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DragonsEye
@@ -26,6 +27,30 @@ namespace DragonsEye
             }
 
             return message;
+        }
+
+        public string Grouping(string message)
+        {
+            int count = 5;
+            for (int i = 4; i < message.Length; i += 5)
+            {
+                if (count % 4 == 0)
+                {
+                    message = message.Insert(i, "\n");
+                    count++;
+                }
+                else
+                {
+                    message = message.Insert(i, " ");
+                    count++;
+                }
+            }
+            return message;
+        }
+
+        public string Degrouping(string message)
+        {
+            return message.Replace(" ", "");
         }
     }
 }

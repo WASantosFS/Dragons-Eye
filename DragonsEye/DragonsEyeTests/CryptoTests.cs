@@ -1,12 +1,17 @@
+﻿using DragonsEye;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DragonsEye;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace DragonsEyeTests
 {
     [TestClass]
-    public class DragonsEyeTests
+    public class CryptoTests
     {
-        /*[TestMethod]
+        // Commented out blocks are due to them producing RED after succeeding tests (GREEN) and REFACTORING.
+        
+        [TestMethod]
         public void LinkShouldWork()
         {
             // arrange
@@ -20,7 +25,7 @@ namespace DragonsEyeTests
         }
 
         [TestMethod]
-        [DataRow("A","E")]
+        [DataRow("A", "E")]
         [DataRow("Z", "J")]
         [DataRow("L", "T")]
         public void EncryptionShouldAccessEncodingString(string input, string expected)
@@ -29,7 +34,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Encryption(input, "A"); 
+            string result = crypto.Encryption(input, "A");
 
             // assert
             Assert.AreEqual(expected, result);
@@ -100,11 +105,11 @@ namespace DragonsEyeTests
 
         [TestMethod]
         [DataRow("ACE", "HMF")]
-        [DataRow("HMF","ACE")]
+        [DataRow("HMF", "ACE")]
         [DataRow("ZRM", "QYC")]
-        [DataRow("QYC","ZRM")]
+        [DataRow("QYC", "ZRM")]
         [DataRow("LKW", "JBX")]
-        [DataRow("JBX","LKW")]
+        [DataRow("JBX", "LKW")]
         public void EncryptionShouldEncipherAndDecipher(string input, string expected)
         {
             // arrange
@@ -204,41 +209,7 @@ namespace DragonsEyeTests
 
             // assert
             Assert.AreEqual(expected, result);
-        }*/
-
-        //{" ", "!", "?", "'", ":", ";", "(", ")", "-", ",", "."};
-        //{"YX", "XD", "YD", "ZD", "XX", "XY", "KKA", "KKB", "YY", "ZZ", "XZ"};
-
-        [TestMethod]
-        [DataRow("HELLO WORLD", "HELLOYXWORLD")]
-        [DataRow("(HOW'RE YOU?)", "KKAHOWZDREYXYOUYDKKB")]
-        [DataRow("YES.", "YESXZ")]
-        public void FormatShouldReplaceSymbolsWithLetters(string input, string expected)
-        {
-            // arrange
-            Formatting formatting = new Formatting();
-
-            // act
-            string result = formatting.Format(input, false);
-
-            // assert
-            Assert.AreEqual(expected, result);
         }
-
-        [TestMethod]
-        [DataRow("HELLOYXWORLD", "HELLO WORLD")]
-        [DataRow("KKAHOWZDREYXYOUYDKKB", "(HOW'RE YOU?)")]
-        [DataRow("YESXZ", "YES.")]
-        public void FormatShouldReplaceLettersWithSymbols(string input, string expected)
-        {
-            // arrange
-            Formatting formatting = new Formatting();
-
-            // act
-            string result = formatting.Format(input, true);
-
-            // assert
-            Assert.AreEqual(expected, result);
-        }
+        
     }
 }
