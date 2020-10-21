@@ -34,16 +34,16 @@ namespace DragonsEye
             int count = 5;
             for (int i = 4; i < message.Length; i += 5)
             {
-                if (count % 4 == 0)
+                /*if (count % 4 == 0)
                 {
                     message = message.Insert(i, "\n");
                     count++;
                 }
                 else
-                {
+                {*/
                     message = message.Insert(i, " ");
                     count++;
-                }
+                //}
             }
             return message;
         }

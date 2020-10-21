@@ -18,6 +18,7 @@ namespace DragonsEye
                 Console.WriteLine("Welcome to Dragon's Eye.");
                 Console.WriteLine("What is message? (Q to quit.)");
                 string message = Console.ReadLine().ToUpper();
+                Console.WriteLine();
 
                 switch (message)
                 {
@@ -27,12 +28,14 @@ namespace DragonsEye
                             string symbolsReplaced = formatting.Format(message, false);
                             string encryptedMessage = crypto.Encryption(symbolsReplaced, "A");
                             Console.WriteLine(formatting.Grouping(encryptedMessage));
+                            Console.WriteLine();
                         }
                         else
                         {
                             string degroupedMessage = formatting.Degrouping(message);
                             string encryptedMessage = crypto.Encryption(degroupedMessage, "A");
                             Console.WriteLine(formatting.Format(encryptedMessage, true));
+                            Console.WriteLine();
                         }
                         break;
                     case "Q":
