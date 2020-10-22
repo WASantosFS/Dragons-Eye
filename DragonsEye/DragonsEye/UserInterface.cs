@@ -26,14 +26,14 @@ namespace DragonsEye
                         if (!crypto.IsEncrypted())
                         {
                             string symbolsReplaced = formatting.Format(message, false);
-                            string encryptedMessage = crypto.Encryption(symbolsReplaced, "A");
+                            string encryptedMessage = crypto.Encryption(symbolsReplaced, "A", "A");
                             Console.WriteLine(formatting.Grouping(encryptedMessage));
                             Console.WriteLine();
                         }
                         else
                         {
                             string degroupedMessage = formatting.Degrouping(message);
-                            string encryptedMessage = crypto.Encryption(degroupedMessage, "A");
+                            string encryptedMessage = crypto.Encryption(degroupedMessage, "A", "A");
                             Console.WriteLine(formatting.Format(encryptedMessage, true));
                             Console.WriteLine();
                         }

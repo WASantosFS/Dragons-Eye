@@ -11,7 +11,8 @@ namespace DragonsEye
         // EKMFLGDQVZNTOWYHXUSPAIBRCJ
 
         private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private string encodingString = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"; // Enigma Rotor "I" wiring.
+        private string rotorTypeI = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"; // Enigma Rotor "I" wiring.
+        private string rotorTypeII = "AJDKSIRUXBLHWTMCQGZNPYFVOE"; // Enigma Rotor "II" wiring.
         private string reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"; // Standard "B" reflector wiring.
         private bool isEncrypted = false;
 
@@ -29,17 +30,23 @@ namespace DragonsEye
                 alphabetString.Substring(0, compensated(alphabet.IndexOf(ringPos) + count));
         }
 
-        public string Encryption(string message, string ringPos)
+        public string Encryption(string message, string ringPosA, string ringPosB)
         {
             string encryptedMessage = "";
+            string shiftedRotorTypeII = Shift(rotorTypeII, ringPosB);
 
             foreach (char letter in message)
             {
-                string shiftedEncodingString = Shift(encodingString, ringPos);
+                string shiftedRotorTypeI = Shift(rotorTypeI, ringPosA);
 
-                char encodingLetter = shiftedEncodingString[alphabet.IndexOf(letter)]; // Encoding the letter through the encodingString.
-                char throughReflector = reflector[alphabet.IndexOf(encodingLetter)]; // Pushing it through the reflector.
-                encryptedMessage += alphabet[shiftedEncodingString.IndexOf(throughReflector)]; // Appending final encoded letter.
+                char encodingLetterA = shiftedRotorTypeI[compensated(alphabet.IndexOf(letter))]; // Encoding through first rotor.
+                char encodingLetterB = shiftedRotorTypeII[alphabet.IndexOf(encodingLetterA)]; // Encoding through second rotor.
+
+                char throughReflector = reflector[alphabet.IndexOf(encodingLetterB)]; // Pushing it through the reflector.
+
+                char throughRotorB = alphabet[shiftedRotorTypeII.IndexOf(throughReflector)];
+
+                encryptedMessage += alphabet[shiftedRotorTypeI.IndexOf(throughRotorB)]; // Appending final encoded letter.
                 count++;
             }
             count = 0;
