@@ -1,8 +1,5 @@
 ﻿using DragonsEye;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DragonsEyeTests
 {
@@ -19,10 +16,9 @@ namespace DragonsEyeTests
         public void FormatShouldReplaceSymbolsWithLetters(string input, string expected)
         {
             // arrange
-            Formatting formatting = new Formatting();
-
+            
             // act
-            string result = formatting.Format(input, false);
+            string result = input.FormatPunctuation(false);
 
             // assert
             Assert.AreEqual(expected, result);
@@ -35,10 +31,9 @@ namespace DragonsEyeTests
         public void FormatShouldReplaceLettersWithSymbols(string input, string expected)
         {
             // arrange
-            Formatting formatting = new Formatting();
 
             // act
-            string result = formatting.Format(input, true);
+            string result = input.FormatPunctuation(true);
 
             // assert
             Assert.AreEqual(expected, result);
@@ -49,10 +44,9 @@ namespace DragonsEyeTests
         public void GroupingShouldGroupLettersIntoFours(string input, string expected)
         {
             // arrange
-            Formatting formatting = new Formatting();
 
             // act
-            string result = formatting.Grouping(input);
+            string result = input.InsertGroupingSpaces();
 
             // assert
             Assert.AreEqual(expected, result);
@@ -66,10 +60,9 @@ namespace DragonsEyeTests
         public void GroupingShouldGroupLettersIntoFoursAndHandleSplitGroups(string input, string expected)
         {
             // arrange
-            Formatting formatting = new Formatting();
 
             // act
-            string result = formatting.Grouping(input);
+            string result = input.InsertGroupingSpaces();
 
             // assert
             Assert.AreEqual(expected, result);
@@ -83,10 +76,9 @@ namespace DragonsEyeTests
         public void DegroupingShouldRemoveSpaces(string input, string expected)
         {
             // arrange
-            Formatting formatting = new Formatting();
 
             // act
-            string result = formatting.Degrouping(input);
+            string result = input.RemoveSpaces();
 
             // assert
             Assert.AreEqual(expected, result);

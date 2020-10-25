@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace DragonsEye
 {
@@ -10,28 +7,42 @@ namespace DragonsEye
         // ABCDEFGHIJKLMNOPQRSTUVWXYZ
         // EKMFLGDQVZNTOWYHXUSPAIBRCJ
 
-        private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        /* TODO: This is a good place to start looking at adding in small classes that can be swapped
+           out to change the machine's behavior. Maybe a List<Rotor>? */  
         private string rotorTypeI = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"; // Enigma Rotor "I" wiring.
         private string rotorTypeII = "AJDKSIRUXBLHWTMCQGZNPYFVOE"; // Enigma Rotor "II" wiring.
         private string reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"; // Standard "B" reflector wiring.
+
         private bool isEncrypted = false;
 
-        private int compensated(int x) => x - (26 * (x / 26));
-        int count = 0;
+        private static int CalculateCompensatedIndex(int x) => x - (26 * (x / 26));
 
-        public bool IsEncrypted()
+        private int count = 0;
+
+        public bool IsEncrypted() => isEncrypted;
+
+        public string Shift(string alpha, string ringPos) // This seems like a method on Rotor
         {
-            return isEncrypted;
+            if (alpha == null) throw new ArgumentNullException(nameof(alpha));
+            if (ringPos == null) throw new ArgumentNullException(nameof(ringPos));
+
+            int ringIndex = Crypto.alphabet.IndexOf(ringPos, StringComparison.Ordinal);
+            int compensated = CalculateCompensatedIndex(ringIndex + count);
+
+            return alpha.Substring(compensated) + alpha.Substring(0, compensated);
         }
 
-        public string Shift(string alphabetString, string ringPos)
+        /* Note: I added optional parameters here to make the tests compile, but I feel like these
+          parameters are both internal state to this class or a different class. I'd consider making
+          these things fields (class variables).*/
+        public string Encrypt(string message, string ringPosA = "A", string ringPosB = "A")
         {
-            return alphabetString.Substring(compensated(alphabet.IndexOf(ringPos) + count)) +
-                alphabetString.Substring(0, compensated(alphabet.IndexOf(ringPos) + count));
-        }
+            if (message == null) throw new ArgumentNullException(nameof(message));
 
-        public string Encryption(string message, string ringPosA, string ringPosB)
-        {
+            // This method isn't really readable to someone who doesn't understand Enigma, even with the comments present.
+
             string encryptedMessage = "";
             string shiftedRotorTypeII = Shift(rotorTypeII, ringPosB);
 
@@ -39,18 +50,25 @@ namespace DragonsEye
             {
                 string shiftedRotorTypeI = Shift(rotorTypeI, ringPosA);
 
-                char encodingLetterA = shiftedRotorTypeI[compensated(alphabet.IndexOf(letter))]; // Encoding through first rotor.
-                char encodingLetterB = shiftedRotorTypeII[alphabet.IndexOf(encodingLetterA)]; // Encoding through second rotor.
+                // Encoding through first rotor.
+                char encodingLetterA = shiftedRotorTypeI[CalculateCompensatedIndex(alphabet.IndexOf(letter))];
+                // Encoding through second rotor.
+                char encodingLetterB = shiftedRotorTypeII[alphabet.IndexOf(encodingLetterA)];
 
-                char throughReflector = reflector[alphabet.IndexOf(encodingLetterB)]; // Pushing it through the reflector.
+                // Pushing it through the reflector.
+                char throughReflector = reflector[alphabet.IndexOf(encodingLetterB)]; 
 
                 char throughRotorB = alphabet[shiftedRotorTypeII.IndexOf(throughReflector)];
 
-                encryptedMessage += alphabet[shiftedRotorTypeI.IndexOf(throughRotorB)]; // Appending final encoded letter.
+                // Appending final encoded letter.
+                encryptedMessage += alphabet[shiftedRotorTypeI.IndexOf(throughRotorB)]; 
+
                 count++;
             }
+
             count = 0;
             isEncrypted = true;
+
             return encryptedMessage;
         }
     }
