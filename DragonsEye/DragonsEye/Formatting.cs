@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DragonsEye
 {
-    public class Formatting
+    public static class Formatting
     {
         /// <summary>
         /// Formatting function that replaces punctuation and vice-versa. 
@@ -14,21 +14,18 @@ namespace DragonsEye
         /// <param name="message"></param>
         /// <param name="isEnciphered"></param>
         /// <returns></returns>
-        public string Format(string message, bool isEnciphered)
+        public static string FormatPunctuation(this string message, bool isEnciphered)
         {
-            List<string> symbols = new List<string>() { " ", "!", "?", "'", ":", "(", ")", "-", ",", "." };
-            List<string> substitutes = new List<string>() { "QQ", "XD", "JQ", "ZD", "XX", "KKA", "KKB", "XY", "ZZ", "XZ" };
+            if (message == null) throw new ArgumentNullException(nameof(message));
+
+            var symbols = new List<string> { " ", "!", "?", "'", ":", "(", ")", "-", ",", "." };
+            var substitutes = new List<string> { "QQ", "XD", "JQ", "ZD", "XX", "KKA", "KKB", "XY", "ZZ", "XZ" };
 
             for (int i = 0; i < symbols.Count; i++)
             {
-                if (!isEnciphered)
-                {
-                    message = message.Replace(symbols[i], substitutes[i]);
-                }
-                else
-                {
-                    message = message.Replace(substitutes[i], symbols[i]);
-                }
+                message = isEnciphered 
+                    ? message.Replace(substitutes[i], symbols[i]) 
+                    : message.Replace(symbols[i], substitutes[i]);
             }
 
             return message;
@@ -41,8 +38,10 @@ namespace DragonsEye
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public string Grouping(string message)
+        public static string InsertGroupingSpaces(this string message)
         {
+            if (message == null) throw new ArgumentNullException(nameof(message));
+
             int count = 5;
             for (int i = 4; i < message.Length; i += 5)
             {
@@ -57,6 +56,7 @@ namespace DragonsEye
                     count++;
                 //}
             }
+
             return message;
         }
 
@@ -65,8 +65,10 @@ namespace DragonsEye
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public string Degrouping(string message)
+        public static string RemoveSpaces(this string message)
         {
+            if (message == null) throw new ArgumentNullException(nameof(message));
+
             return message.Replace(" ", "");
         }
     }

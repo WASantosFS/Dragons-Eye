@@ -18,7 +18,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Encryption("Hello World", "A");
+            string result = crypto.Encrypt("Hello World");
 
             // assert
             Assert.AreEqual("Hello World", result);
@@ -34,7 +34,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Encryption(input, "A");
+            string result = crypto.Encrypt(input);
 
             // assert
             Assert.AreEqual(expected, result);
@@ -53,7 +53,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Encryption(input, "A");
+            string result = crypto.Encrypt(input);
 
             // assert
             Assert.AreEqual(expected, result);
@@ -73,7 +73,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Encryption(input, "A");
+            string result = crypto.Encrypt(input, "A");
 
             // assert
             Assert.AreEqual(expected, result);
@@ -93,7 +93,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Encryption(input, "A");
+            string result = crypto.Encrypt(input, "A");
 
             // assert
             Assert.AreEqual(expected, result);
@@ -116,7 +116,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Encryption(input, "A");
+            string result = crypto.Encrypt(input, "A");
 
             // assert
             Assert.AreEqual(expected, result);
@@ -189,7 +189,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Encryption(input, ringPos);
+            string result = crypto.Encrypt(input, ringPos);
 
             // assert
             Assert.AreEqual(expected, result);
@@ -205,7 +205,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Encryption(input, ringPos);
+            string result = crypto.Encrypt(input, ringPos);
 
             // assert
             Assert.AreEqual(expected, result);
