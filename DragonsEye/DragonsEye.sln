@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonsEye", "DragonsEye\DragonsEye.csproj", "{F5DB40B5-0A43-4B33-B374-924A554E7946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonsEye", "DragonsEye\DragonsEye.csproj", "{F5DB40B5-0A43-4B33-B374-924A554E7946}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonsEyeTests", "DragonsEyeTests\DragonsEyeTests.csproj", "{F84D491F-DDDF-4169-9B5B-E5D7C2D84169}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonsEyeTests", "DragonsEyeTests\DragonsEyeTests.csproj", "{F84D491F-DDDF-4169-9B5B-E5D7C2D84169}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonsEye.Logic", "DragonsEye.Logic\DragonsEye.Logic.csproj", "{0A9E550E-1FC9-43FE-9F05-8B4315C18A63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F84D491F-DDDF-4169-9B5B-E5D7C2D84169}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F84D491F-DDDF-4169-9B5B-E5D7C2D84169}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F84D491F-DDDF-4169-9B5B-E5D7C2D84169}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A9E550E-1FC9-43FE-9F05-8B4315C18A63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A9E550E-1FC9-43FE-9F05-8B4315C18A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A9E550E-1FC9-43FE-9F05-8B4315C18A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A9E550E-1FC9-43FE-9F05-8B4315C18A63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
