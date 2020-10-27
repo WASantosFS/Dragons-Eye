@@ -145,7 +145,7 @@ namespace DragonsEyeTests
         // EKMFLGDQVZNTOWYHXUSPAIBRCJ  --  Wiring
         // YRUHQSLDPXNGOKMIEBFZCWVJAT  --  Reflector
 
-        [TestMethod]
+/*        [TestMethod]
         [DataRow("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "B", "KMFLGDQVZNTOWYHXUSPAIBRCJE")]
         [DataRow("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "J", "ZNTOWYHXUSPAIBRCJEKMFLGDQV")]
         [DataRow("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "T", "PAIBRCJEKMFLGDQVZNTOWYHXUS")]
@@ -160,9 +160,9 @@ namespace DragonsEyeTests
 
             // assert
             Assert.AreEqual(expected, result);
-        }
+        }*/
 
-        [TestMethod]
+/*        [TestMethod]
         [DataRow("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "A", "EKMFLGDQVZNTOWYHXUSPAIBRCJ")]
         [DataRow("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "B", "KMFLGDQVZNTOWYHXUSPAIBRCJE")]
         [DataRow("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "J", "ZNTOWYHXUSPAIBRCJEKMFLGDQV")]
@@ -178,7 +178,7 @@ namespace DragonsEyeTests
 
             // assert
             Assert.AreEqual(expected, result);
-        }
+        }*/
 
         [TestMethod]
         [DataRow("ACE", "A", "HMF")]

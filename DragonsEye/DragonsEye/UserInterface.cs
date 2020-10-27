@@ -43,7 +43,7 @@ namespace DragonsEye
             if (!crypto.IsEncrypted())
             {
                 string symbolsReplaced = message.FormatPunctuation(false);
-                string encryptedMessage = crypto.Encrypt(symbolsReplaced, "A", "A");
+                string encryptedMessage = crypto.Encrypt(symbolsReplaced);
 
                 Console.WriteLine(encryptedMessage.InsertGroupingSpaces());
                 Console.WriteLine();
@@ -51,7 +51,7 @@ namespace DragonsEye
             else
             {
                 string degroupedMessage = message.RemoveSpaces();
-                string encryptedMessage = crypto.Encrypt(degroupedMessage, "A", "A");
+                string encryptedMessage = crypto.Encrypt(degroupedMessage);
 
                 Console.WriteLine(encryptedMessage.FormatPunctuation(true));
                 Console.WriteLine();

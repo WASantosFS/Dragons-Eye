@@ -41,34 +41,49 @@ namespace DragonsEye
         /// <param name="ringPosA"></param>
         /// <param name="ringPosB"></param>
         /// <returns></returns>
-        public string Encrypt(string message, string ringPosA = "A", string ringPosB = "A")
+        public string Encrypt(string message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
             // Local Variables. Defines the rotors.
             string encryptedMessage = "";
-            string shiftedRotorTypeII = rotorTypeII.Shift(ringPosB, count);
             string shiftedRotorA = rotor.RotorCreation(rotorTypes[0]).Wiring.Shift(rotorPositions[0], count);
-            string shiftedRotorB = rotor.RotorCreation(rotorTypes[1]).Wiring.Shift(rotorPositions[1], count);
-            string shiftedRotorC = rotor.RotorCreation(rotorTypes[2]).Wiring.Shift(rotorPositions[2], count);
-            string shiftedRotorD = rotor.RotorCreation(rotorTypes[3]).Wiring.Shift(rotorPositions[3], count);
+            string shiftedRotorB = rotor.RotorCreation(rotorTypes[1]).Wiring.Shift(rotorPositions[1], 0);
+            string shiftedRotorC = rotor.RotorCreation(rotorTypes[2]).Wiring.Shift(rotorPositions[2], 0);
+            string shiftedRotorD = rotor.RotorCreation(rotorTypes[3]).Wiring.Shift(rotorPositions[3], 0);
 
             foreach (char letter in message)
             {
-                string shiftedRotorTypeI = rotorTypeI.Shift(ringPosA, count);
+                shiftedRotorA = shiftedRotorA.Shift(rotorPositions[0], count);
 
                 // Encoding through first rotor.
-                char encodingLetterA = shiftedRotorTypeI[CalculateCompensatedIndex(alphabet.IndexOf(letter))];
+                char encodingLetterA = shiftedRotorA[CalculateCompensatedIndex(alphabet.IndexOf(letter))];
+
                 // Encoding through second rotor.
-                char encodingLetterB = shiftedRotorTypeII[alphabet.IndexOf(encodingLetterA)];
+                //shiftedRotorB = shiftedRotorB.HasReachedNotch(encodingLetterA.ToString(), rotorTypes[0]);
+                char encodingLetterB = shiftedRotorB[CalculateCompensatedIndex(alphabet.IndexOf(encodingLetterA))];
+
+                // Encoding through third rotor.
+                //shiftedRotorC = shiftedRotorC.HasReachedNotch(encodingLetterB.ToString(), rotorTypes[1]);
+                char encodingLetterC = shiftedRotorC[CalculateCompensatedIndex(alphabet.IndexOf(encodingLetterB))];
+
+                // Encoding through forth rotor.
+                char encodingLetterD = shiftedRotorD[CalculateCompensatedIndex(alphabet.IndexOf(encodingLetterC))];
 
                 // Pushing it through the reflector.
-                char throughReflector = reflector[alphabet.IndexOf(encodingLetterB)]; 
+                char throughReflector = reflector[alphabet.IndexOf(encodingLetterD)]; 
 
-                char throughRotorB = alphabet[shiftedRotorTypeII.IndexOf(throughReflector)];
+                // Recoding through forth rotor.
+                char throughRotorD = alphabet[shiftedRotorD.IndexOf(throughReflector)];
+
+                // Recoding through third rotor.
+                char throughRotorC = alphabet[shiftedRotorC.IndexOf(throughRotorD)];
+
+                // Recoding through second rotor.
+                char throughRotorB = alphabet[shiftedRotorB.IndexOf(throughRotorC)];
 
                 // Appending final encoded letter.
-                encryptedMessage += alphabet[shiftedRotorTypeI.IndexOf(throughRotorB)]; 
+                encryptedMessage += alphabet[shiftedRotorA.IndexOf(throughRotorB)]; 
 
                 count++;
             }
