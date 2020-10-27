@@ -27,6 +27,13 @@ namespace DragonsEye
         /* Note: I added optional parameters here to make the tests compile, but I feel like these
           parameters are both internal state to this class or a different class. I'd consider making
           these things fields (class variables).*/
+        /// <summary>
+        /// Method that actually does the en/deciphering.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="ringPosA"></param>
+        /// <param name="ringPosB"></param>
+        /// <returns></returns>
         public string Encrypt(string message, string ringPosA = "A", string ringPosB = "A")
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

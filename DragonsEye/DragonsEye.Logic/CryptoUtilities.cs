@@ -7,13 +7,12 @@ namespace DragonsEye.Logic
 {
     public static class CryptoUtilities
     {
-        private static int CalculateCompensatedIndex(this int x) => x - (26 * (x / 26));
+        private static int CalculateCompensatedIndex(int x) => x - (26 * (x / 26));
+        private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         public static string Shift(this string alpha, string ringPos)
         {
             int count = 0;
-            
-            string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
             if (alpha == null) throw new ArgumentNullException(nameof(alpha));
             if (ringPos == null) throw new ArgumentNullException(nameof(ringPos));
