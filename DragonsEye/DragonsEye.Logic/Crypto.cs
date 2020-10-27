@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DragonsEye.Logic;
+using System;
 
 namespace DragonsEye
 {
@@ -23,17 +24,6 @@ namespace DragonsEye
 
         public bool IsEncrypted() => isEncrypted;
 
-        public string Shift(string alpha, string ringPos) // This seems like a method on Rotor
-        {
-            if (alpha == null) throw new ArgumentNullException(nameof(alpha));
-            if (ringPos == null) throw new ArgumentNullException(nameof(ringPos));
-
-            int ringIndex = Crypto.alphabet.IndexOf(ringPos, StringComparison.Ordinal);
-            int compensated = CalculateCompensatedIndex(ringIndex + count);
-
-            return alpha.Substring(compensated) + alpha.Substring(0, compensated);
-        }
-
         /* Note: I added optional parameters here to make the tests compile, but I feel like these
           parameters are both internal state to this class or a different class. I'd consider making
           these things fields (class variables).*/
@@ -44,11 +34,11 @@ namespace DragonsEye
             // This method isn't really readable to someone who doesn't understand Enigma, even with the comments present.
 
             string encryptedMessage = "";
-            string shiftedRotorTypeII = Shift(rotorTypeII, ringPosB);
+            string shiftedRotorTypeII = rotorTypeII.Shift(ringPosB);
 
             foreach (char letter in message)
             {
-                string shiftedRotorTypeI = Shift(rotorTypeI, ringPosA);
+                string shiftedRotorTypeI = rotorTypeI.Shift(ringPosA);
 
                 // Encoding through first rotor.
                 char encodingLetterA = shiftedRotorTypeI[CalculateCompensatedIndex(alphabet.IndexOf(letter))];

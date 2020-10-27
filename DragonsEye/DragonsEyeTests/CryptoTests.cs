@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DragonsEye.Logic;
 
 namespace DragonsEyeTests
 {
@@ -155,7 +156,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Shift(input, ringPos);
+            string result = input.Shift(ringPos);
 
             // assert
             Assert.AreEqual(expected, result);
@@ -173,7 +174,7 @@ namespace DragonsEyeTests
             Crypto crypto = new Crypto();
 
             // act
-            string result = crypto.Shift(input, ringPos);
+            string result = input.Shift(ringPos);
 
             // assert
             Assert.AreEqual(expected, result);
