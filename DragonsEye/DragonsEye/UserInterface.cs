@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DragonsEye.Logic;
 
 namespace DragonsEye
@@ -14,7 +16,10 @@ namespace DragonsEye
             while (!hasQuit)
             {
                 Console.WriteLine("Welcome to Dragon's Eye.");
-                Console.WriteLine("What is message? (Q to quit.)");
+
+                SetRotors();
+
+                Console.WriteLine("What is the message?");
 
                 string message = Console.ReadLine().ToUpper();
 
@@ -51,6 +56,16 @@ namespace DragonsEye
                 Console.WriteLine(encryptedMessage.FormatPunctuation(true));
                 Console.WriteLine();
             }
+        }
+
+        private void SetRotors()
+        {
+            Console.Write("Please list the rotor types you want (separated by a space): ");
+            List<string> rotorTypes = Console.ReadLine().Split(" ").ToList();
+            Console.Write("Please list rotor positions (A-Z, separated by space): ");
+            List<string> rotorPositions = Console.ReadLine().Split(" ").ToList();
+
+            crypto.SetRotors(rotorTypes, rotorPositions);
         }
     }
 }

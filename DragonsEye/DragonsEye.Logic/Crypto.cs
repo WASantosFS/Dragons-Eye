@@ -1,14 +1,20 @@
 ﻿using DragonsEye.Logic;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace DragonsEye
 {
     public class Crypto
     {
-        // ABCDEFGHIJKLMNOPQRSTUVWXYZ
-        // EKMFLGDQVZNTOWYHXUSPAIBRCJ
-
         private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private int count = 0;
+        private bool isEncrypted = false;
+
+        private List<string> rotorTypes;
+        private List<string> rotorPositions;
+
+        private readonly Rotor rotor = new Rotor();
 
         /* TODO: This is a good place to start looking at adding in small classes that can be swapped
            out to change the machine's behavior. Maybe a List<Rotor>? */  
@@ -16,13 +22,14 @@ namespace DragonsEye
         private string rotorTypeII = "AJDKSIRUXBLHWTMCQGZNPYFVOE"; // Enigma Rotor "II" wiring.
         private string reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"; // Standard "B" reflector wiring.
 
-        private bool isEncrypted = false;
-
+        public bool IsEncrypted() => isEncrypted;
         private static int CalculateCompensatedIndex(int x) => x - (26 * (x / 26));
 
-        private int count = 0;
-
-        public bool IsEncrypted() => isEncrypted;
+        public void SetRotors(List<string> types, List<string> positions)
+        {
+            rotorTypes = types;
+            rotorPositions = positions;
+        }
 
         /* Note: I added optional parameters here to make the tests compile, but I feel like these
           parameters are both internal state to this class or a different class. I'd consider making
@@ -38,14 +45,17 @@ namespace DragonsEye
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
-            // This method isn't really readable to someone who doesn't understand Enigma, even with the comments present.
-
+            // Local Variables. Defines the rotors.
             string encryptedMessage = "";
-            string shiftedRotorTypeII = rotorTypeII.Shift(ringPosB);
+            string shiftedRotorTypeII = rotorTypeII.Shift(ringPosB, count);
+            string shiftedRotorA = rotor.RotorCreation(rotorTypes[0]).Wiring.Shift(rotorPositions[0], count);
+            string shiftedRotorB = rotor.RotorCreation(rotorTypes[1]).Wiring.Shift(rotorPositions[1], count);
+            string shiftedRotorC = rotor.RotorCreation(rotorTypes[2]).Wiring.Shift(rotorPositions[2], count);
+            string shiftedRotorD = rotor.RotorCreation(rotorTypes[3]).Wiring.Shift(rotorPositions[3], count);
 
             foreach (char letter in message)
             {
-                string shiftedRotorTypeI = rotorTypeI.Shift(ringPosA);
+                string shiftedRotorTypeI = rotorTypeI.Shift(ringPosA, count);
 
                 // Encoding through first rotor.
                 char encodingLetterA = shiftedRotorTypeI[CalculateCompensatedIndex(alphabet.IndexOf(letter))];
