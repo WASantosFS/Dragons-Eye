@@ -15,6 +15,26 @@ namespace DatabaseConstruction
 
         private List<string> lister(string x) => x.Split(" ").ToList();
 
+        public string GetAlphabet()
+        {
+            return alphabet;
+        }
+
+        public string GetRotors()
+        {
+            return rotors;
+        }
+
+        public string GetFourth()
+        {
+            return fourth;
+        }
+
+        public string GetReflector()
+        {
+            return reflector;
+        }
+
         public List<string> Randomizer(string input, int max)
         {
             var random = new Random();
