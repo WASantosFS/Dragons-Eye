@@ -34,12 +34,15 @@ namespace DragonsEye
         /* Note: I added optional parameters here to make the tests compile, but I feel like these
           parameters are both internal state to this class or a different class. I'd consider making
           these things fields (class variables).*/
+
         /// <summary>
         /// Method that actually does the en/deciphering.
+        /// Entire system signal flow is as follows:
+        /// Input -> Plugboard -> Fixed Entry/Exit Plate (FEP) -> {Rotor Array} -> Reflector -> {Rotor Array}^-1 -> FEP -> Plugboard -> Output
+        /// Where {Rotor Array} = Rotor 1 -> Rotor 2 -> Rotor 3 -> Rotor 4, and ^-1 indicates working in reverse.
+        /// Rotor A steps with every letter while Rotors B and C are triggers by the rotor next to it notch(es). Historically, Rotor D does not step.
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="ringPosA"></param>
-        /// <param name="ringPosB"></param>
         /// <returns></returns>
         public string Encrypt(string message)
         {
