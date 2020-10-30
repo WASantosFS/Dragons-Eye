@@ -22,3 +22,21 @@ TO-DO:
 BUGS:
 - [ ] Cannot encipher or decipher back-to-back
 - [x] Punctuation replacements can cause issues "way." -> "wa z"
+
+User -> Message (request)
+    - Request triggers:
+        - Find local time, convert to UTC +0
+        - Takes conversion and runs:
+            Select * From daily_settings
+            Where datetime = Last(datetime < @UTC);
+        - Information is stored in a list
+        - daily_settings.id is used to pull key_ind and enc_ind, both are stored
+            - enc_id is encrypted by starting_positions
+                - result replaces starting_positions
+            - a method pulls out bigrams from key_ind and enc_ind
+                - ex. (CATS, DOGS) => (CD, AO, TG, SS)
+            - above list is used to reference the bigram row for that daily_setting.id.
+                - replacement is done and separated
+                    - appended to encrypted message at beginning
+        - with crypto set, message is run through
+        - displayed to user

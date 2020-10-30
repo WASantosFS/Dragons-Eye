@@ -12,6 +12,7 @@ namespace DatabaseConstruction
         private const string rotors = "I II III IV V VI VII VIII";
         private const string fourth = "Beta Gamma";
         private const string reflector = "B C";
+        Random random = new Random();
 
         private List<string> lister(string x) => x.Split(" ").ToList();
 
@@ -35,9 +36,9 @@ namespace DatabaseConstruction
             return reflector;
         }
 
+        // This method is okay for plugs, rotors, fourth, and reflector.
         public List<string> Randomizer(string input, int max)
         {
-            var random = new Random();
             List<string> list = new List<string>();
 
             do
@@ -47,10 +48,6 @@ namespace DatabaseConstruction
                 if (!list.Contains(input))
                 {
                     list.Add(value);
-                }
-                else
-                {
-                    continue;
                 }
             } while (list.Count < max);
 
