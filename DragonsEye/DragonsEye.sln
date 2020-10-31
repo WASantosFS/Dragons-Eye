@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonsEyeTests", "DragonsE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonsEye.Logic", "DragonsEye.Logic\DragonsEye.Logic.csproj", "{0A9E550E-1FC9-43FE-9F05-8B4315C18A63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseConstruction", "DatabaseConstruction\DatabaseConstruction.csproj", "{04318CB6-FA0A-461A-B2D5-2D6E63194582}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseConstruction", "DatabaseConstruction\DatabaseConstruction.csproj", "{04318CB6-FA0A-461A-B2D5-2D6E63194582}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseConstructionTests", "DatabaseConstructionTests\DatabaseConstructionTests.csproj", "{AF74E41E-BBE9-4A4D-BB43-E6F97257B8D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{04318CB6-FA0A-461A-B2D5-2D6E63194582}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04318CB6-FA0A-461A-B2D5-2D6E63194582}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04318CB6-FA0A-461A-B2D5-2D6E63194582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF74E41E-BBE9-4A4D-BB43-E6F97257B8D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF74E41E-BBE9-4A4D-BB43-E6F97257B8D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF74E41E-BBE9-4A4D-BB43-E6F97257B8D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF74E41E-BBE9-4A4D-BB43-E6F97257B8D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
