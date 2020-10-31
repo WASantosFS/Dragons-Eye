@@ -23,6 +23,8 @@ namespace DatabaseConstruction.DAL
         {
             List<DailySettings> dailySettings = new List<DailySettings>();
 
+
+
             return dailySettings;
         }
     }
