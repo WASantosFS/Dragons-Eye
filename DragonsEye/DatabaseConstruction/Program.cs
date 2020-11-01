@@ -20,8 +20,8 @@ namespace DatabaseConstruction
             // options.Value.SecretOption will be SQL Connection String and editable via secrets.json
             // options.Value.OpenOption is in appsettings.json
 
-            //UserInterface userInterface = new UserInterface();
-            //userInterface.Menus();
+            UserInterface userInterface = new UserInterface();
+            userInterface.Menus();
         }
     }
 }

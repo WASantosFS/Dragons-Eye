@@ -45,7 +45,7 @@ namespace DatabaseConstruction
             {
                 int index = random.Next(lister(input).Count);
                 string value = lister(input)[index];
-                if (!list.Contains(input))
+                if (!list.Contains(value))
                 {
                     list.Add(value);
                 }
