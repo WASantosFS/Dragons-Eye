@@ -23,5 +23,20 @@ namespace DatabaseConstruction
             var provider = services.BuildServiceProvider();
             return provider;
         }
+
+        public static IServiceProvider GetServiceProviderArgumentless()
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", true, true)
+                .AddEnvironmentVariables()
+                .AddUserSecrets(typeof(Program).Assembly)
+                .Build();
+            var services = new ServiceCollection();
+
+            services.Configure<MyOptions>(configuration.GetSection(typeof(MyOptions).FullName));
+
+            var provider = services.BuildServiceProvider();
+            return provider;
+        }
     }
 }

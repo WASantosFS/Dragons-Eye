@@ -54,7 +54,7 @@ namespace DatabaseConstruction
             return list;
         }
 
-        // This method is exclusively for the key and encryption indicators generation.
+        // This method is exclusively for the starting position, key and encryption indicators generation.
         public List<string> KeyMaker()
         {
             List<string> list = new List<string>();
@@ -74,9 +74,9 @@ namespace DatabaseConstruction
         {
             List<string> list = new List<string>();
 
-            while (list.Count < 4)
+            while (list.Count < 3)
             {
-                list.Add(random.Next(1, 26).ToString());
+                list.Add(random.Next(0, 26).ToString());
             }
 
             return list;

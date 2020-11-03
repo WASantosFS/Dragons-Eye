@@ -8,5 +8,9 @@ namespace DatabaseConstruction.DAL
     public interface IDailySettingsDAO
     {
         public IList<DailySettings> GetDailySettings();
+
+        public IList<DailySettings> SelectDailySettings(int id);
+
+        public void AddDailySettings(DailySettings dailySettings);
     }
 }
