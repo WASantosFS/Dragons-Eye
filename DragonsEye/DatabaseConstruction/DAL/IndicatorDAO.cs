@@ -4,7 +4,8 @@ using System.Text;
 
 namespace DatabaseConstruction.DAL
 {
-    class EncryptionIndicatorDAO
+    public class IndicatorDAO
     {
+        
     }
 }

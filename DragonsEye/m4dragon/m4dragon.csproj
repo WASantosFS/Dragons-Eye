@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>2852a5b7-0fd1-4ecc-91c3-c7cb7de8362b</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/6f84c9b7-0e0d-4173-bd91-506a43be379e/resourceGroups/EnigmaResourceGroup/providers/microsoft.insights/components/m4dragon</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.0.0" />
+    <PackageReference Include="Azure.Identity" Version="1.1.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DragonsEye.Logic\DragonsEye.Logic.csproj" />
+  </ItemGroup>
+
+
+</Project>

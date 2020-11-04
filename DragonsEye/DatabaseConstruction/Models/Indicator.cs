@@ -4,7 +4,10 @@ using System.Text;
 
 namespace DatabaseConstruction.Models
 {
-    class EncryptionIndicator
+    public class Indicator
     {
+        public int Id { get; set; }
+
+        public int IndicatorNumber { get; set; }
     }
 }

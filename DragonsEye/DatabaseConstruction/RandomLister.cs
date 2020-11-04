@@ -81,5 +81,41 @@ namespace DatabaseConstruction
 
             return list;
         }
+
+        public List<string> BigramPairs()
+        {
+            List<string> list = new List<string>();
+            int main = 0;
+            int increment = 0;
+            string pair = $"{lister(alphabet)[main]}{lister(alphabet)[increment]}";
+
+            while (main < 26)
+            {
+                if (increment == 26)
+                {
+                    main++;
+                    increment = 0;
+                }
+                else
+                {
+                    list.Add(pair);
+                }
+            }
+
+            return list;
+        }
+
+        public List<string> BigramShuffle(List<string> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
     }
 }

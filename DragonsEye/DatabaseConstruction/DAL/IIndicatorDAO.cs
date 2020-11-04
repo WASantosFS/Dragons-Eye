@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DatabaseConstructionTests
+namespace DatabaseConstruction.DAL
 {
-    class EncryptionIndicatorDAOTests
+    interface IIndicatorDAO
     {
     }
 }

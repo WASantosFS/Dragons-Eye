@@ -51,6 +51,9 @@ namespace DatabaseConstruction
                     case "7":
                         PopulateDailySettings();
                         break;
+                    case "8":
+                        Console.WriteLine(string.Join(" ", lister.BigramMaker()));
+                        break;
                     case "Q":
                         hasQuit = true;
                         break;
