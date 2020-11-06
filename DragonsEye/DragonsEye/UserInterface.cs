@@ -1,71 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DragonsEye.Logic;
+using DragonsEye.APIClient;
 
 namespace DragonsEye
 {
     public class UserInterface
     {
-        private readonly Crypto crypto = new Crypto();
+        private readonly CryptoService cryptoService = new CryptoService();
 
         public void ShowMainMenu()
         {
             bool hasQuit = false;
+            
+            Console.WriteLine("Welcome to Dragon's Eye.");
+            Console.WriteLine("------------------------");
 
             while (!hasQuit)
             {
-                Console.WriteLine("Welcome to Dragon's Eye.");
+                Console.WriteLine();
+                Console.WriteLine("What would you like to do?");
+                Console.WriteLine("   1) Encipher a message");
+                Console.WriteLine("   2) Decipher a message");
+                Console.WriteLine("   3) Quit");
 
-                SetRotors();
-
-                Console.WriteLine("What is the message?");
-
-                string message = Console.ReadLine().ToUpper();
+                int userInput = int.Parse(Console.ReadLine());
 
                 Console.WriteLine();
 
-                switch (message)
+                switch (userInput)
                 {
-                    default:
-                        HandleMessageInput(message);
+                    case 1:
+                        Console.WriteLine("What is the message?");
+                        string enMessage = Console.ReadLine();
+                        EncipherAMessage(enMessage);
                         break;
 
-                    case "Q":
+                    case 2:
+                        Console.WriteLine("What is the message?");
+                        string deMessage = Console.ReadLine();
+                        DecipherAMessage(deMessage);
+                        break;
+
+                    case 3:
                         hasQuit = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("Please make a valid choice.");
                         break;
                 }
             }
         }
 
-        private void HandleMessageInput(string message)
+        private void EncipherAMessage(string message)
         {
-            if (!crypto.IsEncrypted())
-            {
-                string symbolsReplaced = message.FormatPunctuation(false);
-                string encryptedMessage = crypto.Encrypt(symbolsReplaced);
-
-                Console.WriteLine(encryptedMessage.InsertGroupingSpaces());
-                Console.WriteLine();
-            }
-            else
-            {
-                string degroupedMessage = message.RemoveSpaces();
-                string encryptedMessage = crypto.Encrypt(degroupedMessage);
-
-                Console.WriteLine(encryptedMessage.FormatPunctuation(true));
-                Console.WriteLine();
-            }
+            Console.WriteLine();
+            Console.WriteLine("Enciphered Message:");
+            Console.WriteLine(cryptoService.EncipherMessage(message));
+            Console.WriteLine();
         }
 
-        private void SetRotors()
+        private void DecipherAMessage(string message)
         {
-            Console.Write("Please list the rotor types you want (separated by a space): ");
-            List<string> rotorTypes = Console.ReadLine().Split(" ").ToList();
-            Console.Write("Please list rotor positions (A-Z, separated by space): ");
-            List<string> rotorPositions = Console.ReadLine().Split(" ").ToList();
-
-            crypto.SetRotors(rotorTypes, rotorPositions);
+            Console.WriteLine();
+            Console.WriteLine("Deciphered Message:");
+            Console.WriteLine(cryptoService.DecipherMessage(message));
+            Console.WriteLine();
         }
     }
 }

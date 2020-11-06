@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
-namespace DragonsEye
+namespace DragonsEye.Logic
 {
     public class Crypto
     {
@@ -18,17 +19,16 @@ namespace DragonsEye
 
         /* TODO: This is a good place to start looking at adding in small classes that can be swapped
            out to change the machine's behavior. Maybe a List<Rotor>? */  
-        private string rotorTypeI = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"; // Enigma Rotor "I" wiring.
-        private string rotorTypeII = "AJDKSIRUXBLHWTMCQGZNPYFVOE"; // Enigma Rotor "II" wiring.
         private string reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"; // Standard "B" reflector wiring.
 
         public bool IsEncrypted() => isEncrypted;
         private static int CalculateCompensatedIndex(int x) => x - (26 * (x / 26));
 
-        public void SetRotors(List<string> types, List<string> positions)
+        public void SetRotors(string types, string fourthRotor, string positions)
         {
-            rotorTypes = types;
-            rotorPositions = positions;
+            types = types + " " + fourthRotor;
+            rotorTypes = types.Split(' ').ToList();
+            rotorPositions = positions.Split(' ').ToList();
         }
 
         /* Note: I added optional parameters here to make the tests compile, but I feel like these

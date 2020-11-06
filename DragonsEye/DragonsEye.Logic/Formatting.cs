@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DragonsEye
+namespace DragonsEye.Logic
 {
     public static class Formatting
     {

@@ -20,7 +20,7 @@ namespace DragonsEye.Logic
                 ["III"] = new RotorProps { Wiring = "BDFHJLCPRTXVZNYEIWGAKMUSQO", Notches = "V" },
                 ["IV"] = new RotorProps { Wiring = "ESOVPZJAYQUIRHXLNFTGKDCMWB", Notches = "J" },
                 ["V"] = new RotorProps { Wiring = "VZBRGITYUPSDNHLXAWMJQOFECK", Notches = "Z" },
-                ["VI"] = new RotorProps { Wiring = "PGVOUMFYQBENHZRDKASXLICTW", Notches = "Z,M" },
+                ["VI"] = new RotorProps { Wiring = "JPGVOUMFYQBENHZRDKASXLICTW", Notches = "Z,M" },
                 ["VII"] = new RotorProps { Wiring = "NZJHGRCXMYSWBOUFAIVLPEKQDT", Notches = "Z,M" },
                 ["VIII"] = new RotorProps { Wiring = "FKQHTLXOCBJSPDZRAMEWNIUYGV", Notches = "Z,M" },
                 ["Beta"] = new RotorProps { Wiring = "LEYJVCNIXWPBQMDRTAKZGFUHOS" },
