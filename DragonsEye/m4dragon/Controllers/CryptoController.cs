@@ -7,8 +7,10 @@ using m4dragon.Models_Server;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DragonsEye.Logic;
-using DragonsEye;
 using Crypto = m4dragon.Models_Server.Crypto;
+using System.Text.RegularExpressions;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
+using System.Reflection.Metadata.Ecma335;
 
 namespace m4dragon.Controllers
 {
@@ -16,11 +18,6 @@ namespace m4dragon.Controllers
     [ApiController]
     public class CryptoController : ControllerBase
     {
-        // TODO: Get to pull all messages encrypted.
-        // TODO: Get to pull individual message.
-        // TODO: Post to insert a message.
-        // TODO: Get to pull daily_settings.
-
         private ICryptoSqlDAO cryptoDAO;
         private DragonsEye.Logic.Crypto cryptoLogic = new DragonsEye.Logic.Crypto();
 
@@ -29,17 +26,62 @@ namespace m4dragon.Controllers
             this.cryptoDAO = cryptoSql;
         }
 
-        [HttpPost]
-        public ActionResult<string> Encipher(MessageInformation messageInformation)
-        {            
-            List<Models_Server.Crypto> settings = this.cryptoDAO.SelectDailySettings(messageInformation.DayOfYear, messageInformation.Hour);
+        private bool IsEnciphered(string message)
+        {
+            string pattern = @"^([012]?[0-9]?[0-9]|3[0-5][0-9]|36[0-6]):([01]?[0-9]|2[0-3])\s?$";
 
-            this.cryptoLogic.SetRotors(settings[0].Rotors, settings[0].BetaOrGamma, settings[0].StartingPosition);
+            Regex regex = new Regex(pattern);
 
-            string symbolsReplaced = messageInformation.Message.ToUpper().FormatPunctuation(false);
+            if (int.TryParse(message.Substring(0,1), out int number))
+            {
+                string sub = message.Substring(0, message.IndexOf(" "));
+
+                if (regex.IsMatch(sub)) 
+                { 
+                    return true; 
+                }
+                else { return false; }
+            }
+            else { return false; }
+        }
+
+        private string Encipher(string message)
+        {
+            string symbolsReplaced = message.ToUpper().FormatPunctuation(false);
             string encryptedMessage = cryptoLogic.Encrypt(symbolsReplaced).InsertGroupingSpaces();
 
-            return Ok(encryptedMessage);
+            return encryptedMessage;
+        }
+
+        private string Decipher(string message)
+        {
+            string degroupedMessage = message.Substring(6).ToUpper().RemoveSpaces();
+            string decipheredMessage = cryptoLogic.Encrypt(degroupedMessage).FormatPunctuation(true);
+
+            return decipheredMessage;
+        }
+
+        [HttpPost]
+        public ActionResult<string> Cipher(MessageInformation messageInformation)
+        {     
+            if (!IsEnciphered(messageInformation.Message))
+            {
+                List<Models_Server.Crypto> settings = this.cryptoDAO.SelectDailySettings(messageInformation.DayOfYear, messageInformation.Hour);
+
+                this.cryptoLogic.SetRotors(settings[0].Rotors, settings[0].BetaOrGamma, settings[0].StartingPosition);
+                
+                return $"{messageInformation.DayOfYear}:{messageInformation.Hour} {Encipher(messageInformation.Message)}";
+            }
+            else
+            {
+                List<string> split = messageInformation.Message.Substring(0, messageInformation.Message.IndexOf(" ")).Split(":").ToList();
+                
+                List<Models_Server.Crypto> settings = this.cryptoDAO.SelectDailySettings(int.Parse(split[0]), int.Parse(split[1]));
+
+                this.cryptoLogic.SetRotors(settings[0].Rotors, settings[0].BetaOrGamma, settings[0].StartingPosition);
+
+                return Decipher(messageInformation.Message);
+            }
         }
 
         [HttpPut]

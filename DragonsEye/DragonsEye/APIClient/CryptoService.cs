@@ -12,7 +12,7 @@ namespace DragonsEye.APIClient
         private const string API_URL = "http://localhost:52979/crypto";
         private readonly IRestClient client = new RestClient();
 
-        public string EncipherMessage(string message)
+        public string CipherMessage(string message)
         {
             RestRequest request = new RestRequest(API_URL);
 
@@ -28,7 +28,7 @@ namespace DragonsEye.APIClient
             return response.Data;
         }
 
-        public string DecipherMessage(string message)
+        /*public string DecipherMessage(string message)
         {
             RestRequest request = new RestRequest(API_URL);
 
@@ -42,6 +42,6 @@ namespace DragonsEye.APIClient
             IRestResponse<string> response = client.Put<string>(request);
 
             return response.Data;
-        }
+        }*/
     }
 }
