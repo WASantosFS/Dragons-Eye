@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using m4dragon.Controllers;
 using m4dragon.DAL_Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +33,10 @@ namespace m4dragon
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
 
             string connectionString = Configuration.GetConnectionString("m4Database");
+            string weatherAPI = Configuration.GetConnectionString("weatherAPI");
+            services.AddTransient(m => new WeatherController(weatherAPI));
 
+            services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
             services.AddTransient<ICryptoSqlDAO>(m => new CryptoSqlDAO(connectionString));
         }
 

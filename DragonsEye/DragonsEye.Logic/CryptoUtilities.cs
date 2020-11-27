@@ -8,7 +8,6 @@ namespace DragonsEye.Logic
 {
     public static class CryptoUtilities
     {
-
         private static int CalculateCompensatedIndex(int x) => x - (26 * (x / 26));
         private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
