@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DatabaseConstruction.DAL
+namespace m4dragon.DAL_Server
 {
-    public class IndicatorDAO
+    public interface IBigramsDAO
     {
-        
+
     }
 }

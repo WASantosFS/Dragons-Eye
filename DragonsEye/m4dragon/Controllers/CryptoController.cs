@@ -63,7 +63,7 @@ namespace m4dragon.Controllers
 
         [HttpPost]
         public ActionResult<string> Cipher(MessageInformation messageInformation)
-        {     
+        {
             if (!IsEnciphered(messageInformation.Message))
             {
                 List<Models_Server.Crypto> settings = this.cryptoDAO.SelectDailySettings(messageInformation.DayOfYear, messageInformation.Hour);
@@ -96,6 +96,8 @@ namespace m4dragon.Controllers
 
             return Ok(decipheredMessage);
         }
+
+        
     }
 }
 
